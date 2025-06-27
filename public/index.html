@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>WiFi Counter</title>
+</head>
+<body>
+  <h1>Shared Counter</h1>
+  <h2 id="counter">0</h2>
+  <button onclick="increment()">Increment</button>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+    const counterElement = document.getElementById('counter');
+
+    socket.on('update', (count) => {
+      counterElement.innerText = count;
+    });
+
+    function increment() {
+      socket.emit('increment');
+    }
+  </script>
+</body>
+</html>
